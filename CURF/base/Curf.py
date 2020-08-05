@@ -213,7 +213,7 @@ class Curf:
         self.isotp_stack = isotp.CanStack(
             bus=self.bus, address=self.isotp_addr,
             error_handler=self.curf_error_handler, 
-            params = {"tx_padding":0x55})
+            params = {"tx_padding":0xCC})
         self.is_isotp = True
 
     def send_frame(self, frame_id, frame_data):
