@@ -95,7 +95,6 @@ class Curf:
         self.channel = channel
         self.bitrate = bitrate
         self.db_file = db
-
         self.bus = can.interface.Bus(
             bustype=self.interface, channel=self.channel, bitrate=self.bitrate)
         self.logbus = can.ThreadSafeBus(
