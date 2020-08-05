@@ -95,6 +95,7 @@ class Curf:
         self.channel = channel
         self.bitrate = bitrate
         self.db_file = db
+
         self.bus = can.interface.Bus(
             bustype=self.interface, channel=self.channel, bitrate=self.bitrate)
         self.logbus = can.ThreadSafeBus(
@@ -212,7 +213,8 @@ class Curf:
 
         self.isotp_stack = isotp.CanStack(
             bus=self.bus, address=self.isotp_addr,
-            error_handler=self.curf_error_handler)
+            error_handler=self.curf_error_handler, 
+            params = {"tx_padding":0x55})
         self.is_isotp = True
 
     def send_frame(self, frame_id, frame_data):
