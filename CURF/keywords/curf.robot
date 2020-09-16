@@ -22,7 +22,7 @@ ${PAYLOAD} Length Must Be ${NB_OF_BYTES} Bytes
 
 # Can Bus Configuration
 
-Set CAN Bus ${INTERFACE} ${CHANNEL} ${BITRATE} ${DB FILE}
+Set CAN Bus ${INTERFACE} ${CHANNEL} ${BITRATE} ${DB FILE} 
     Set Can     ${INTERFACE}        ${CHANNEL}      ${BITRATE}      ${DB FILE}         ${TEST NAME}
 
 Get CAN Bus Configuration
@@ -42,7 +42,7 @@ Clean CAN BUS
     \    Log    ${RES}
     \    Exit For Loop If    '${RES}' == 'None'
 
-Stop Bus
+Stop CAN Bus
         Stop Bus
 
 End Log Can
