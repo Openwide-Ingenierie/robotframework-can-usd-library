@@ -97,35 +97,16 @@ class Curf:
         self.db_file = db
         self.bus = can.interface.Bus(
             bustype=self.interface, channel=self.channel, bitrate=self.bitrate)
-        self.logbus = can.ThreadSafeBus(
-            interface=self.interface, channel=self.channel)
         if db is not None and db != 'None':
             self.db = cantools.database.load_file(db)
             self.db_default_node = self.db.nodes[0].name
-        path = os.getcwd()
-        path = path + "/outputs/" + ("%d%02d%02d/" % (dt_now.year,
-                                                                    dt_now.month,
-                                                                    dt_now.day))
-        try:
-            os.mkdir(path)
-        except FileExistsError:
-            pass
-        output_candump_filename = path + ("%s_%d%02d%02d_%02d%02d%02d" % (test_name,
-                                                                    dt_now.year,
-                                                                    dt_now.month,
-                                                                    dt_now.day,
-                                                                    dt_now.hour,
-                                                                    dt_now.minute,
-                                                                    dt_now.second))
-        self.logger = can.Logger(output_candump_filename)
-        self.notifier = can.Notifier(self.logbus, [self.logger])
+ 
         self.is_set = True
 
     def end_can(self):
         """ Stop the CAN BUS
         """
-        self.notifier.remove_listener(self.logger)
-        self.logger.stop()
+        self.bus.stop()
 
     def get_message_name_by_signal(self, signal_name):
         """ Search message_name in Database by signal
